@@ -21,8 +21,10 @@ func main() {
 // 递归的方式：从根节点往下一直切分子序列，直到某个子序列能够推导出子树（如上所述）
 // 		返回树的结构，和根节点，由于返回来的子树结构已经构建好了，所以只需要把子树的根节点
 // 		挂到当前递归层级的树的相应位置（左子树or右子树）
-// 考虑异常情况：1. 非平衡二叉树：左子树/右子树的层级比右子树/左子树深，导致len(左/右子树)在某一次递归及之后是0
-//			2. 考虑数组越界： 3. 考虑访问nil值
+// 输入测试：
+//  *正常情况：普通二叉树（完全二叉树or不完全二叉树）
+//  *边界情况：1. 只有左子树or只有右子树；2. 只有一个节点 3. nil值：根节点为nil
+//  *错误数据：输入的前序序列和中序序列不匹配（不是一个树的）
 // -------------------------------------------
 // ------------- debug错误记录 ----------------
 // 	1. 第二次递归时传进左子树的root是nil，而preOrder和midOrder都有值
@@ -73,7 +75,18 @@ func RebuildFunc(preOrder []int, midOrder []int) (aboveRoot *BinaryTreeNode) {
 // 先进先出，所以是个队列。
 // ！！！为什么一定要暂存？？因为存在一个基础逻辑：程序是顺序执行的&树不能随机访问
 //    因此，通过list暂存节点来达成回溯
+// *考虑边界条件：1. 不是完全二叉树	2. 只有左子树or只有右子树
+// *考虑特殊输入：1. 根节点是nil值 2. 树上面只有一个节点
 func printTreeHorizontal(root *BinaryTreeNode) {
+	// 处理特殊输入
+	if root == nil {
+		return
+	}
+	if root.m_pLeft == nil && root.m_pRight == nil {
+		fmt.Println(root.m_nValue)
+	}
+
+	// 非特殊输入
 	stageNodesQueue := make([]*BinaryTreeNode, 0)
 	stageNodesQueue = append(stageNodesQueue, root)
 	// 结束条件：遍历完最后一层，即当前层的nodes没有一个子节点，即len(stageNodesQueue) == 0
