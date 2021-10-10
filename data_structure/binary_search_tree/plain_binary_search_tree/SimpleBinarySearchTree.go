@@ -34,11 +34,7 @@ func RebuildBinaryTree() {
 	preOrder := []int{1, 2, 4, 7, 3, 5, 6, 8}
 	midOrder := []int{4, 7, 2, 1, 5, 3, 8, 6}
 	binaryTree := RebuildFunc(preOrder, midOrder)
-	printTree(binaryTree)
-}
-
-func printTree(binaryTree *BinaryTreeNode) {
-	
+	printTreeHorizontal(binaryTree)
 }
 
 func RebuildFunc(preOrder []int, midOrder []int) (aboveRoot *BinaryTreeNode) {
@@ -68,4 +64,31 @@ func RebuildFunc(preOrder []int, midOrder []int) (aboveRoot *BinaryTreeNode) {
 	root.m_pRight = RebuildFunc(rightPreOrder, midOrder[i+1:])
 
 	return root
+}
+
+// 剑指offer 题32 从上到下依次打印每一层的节点（广度优先遍历）（层序遍历问题）
+// 相似题：leetcode 102
+// 通过一个list暂存每一层的节点&思路是只push子节点不push当前节点（避免重复）
+// 开始遍历下一层时通过list里面暂存的节点继续遍历
+// 先进先出，所以是个队列。
+// ！！！为什么一定要暂存？？因为存在一个基础逻辑：程序是顺序执行的&树不能随机访问
+//    因此，通过list暂存节点来达成回溯
+func printTreeHorizontal(root *BinaryTreeNode) {
+	stageNodesQueue := make([]*BinaryTreeNode, 0)
+	stageNodesQueue = append(stageNodesQueue, root)
+	// 结束条件：遍历完最后一层，即当前层的nodes没有一个子节点，即len(stageNodesQueue) == 0
+	for {
+		if len(stageNodesQueue) == 0 {
+			break
+		}
+		node := stageNodesQueue[0]
+		stageNodesQueue = stageNodesQueue[1:]
+		fmt.Printf("%d  ", node.m_nValue)
+		if node.m_pLeft != nil {
+			stageNodesQueue = append(stageNodesQueue, node.m_pLeft)
+		}
+		if node.m_pRight != nil {
+			stageNodesQueue = append(stageNodesQueue, node.m_pRight)
+		}
+	}
 }
