@@ -1,4 +1,4 @@
-package main
+package stackandqueue
 
 type Stack struct {
 	innerSlice []interface{}
@@ -44,7 +44,7 @@ func (s *Stack) pop() interface{} {
 // 		* 导致除非一直是deleteHead操作，否则addTail再deleteHead之后得到的不会是队列头部的
 //		* 元素而是刚入队的元素
 //		* 解决：从stack2 pop出来之后再塞回stack1
-func main() {
+func (*InnerStackQueue) run() {
 	q := &InnerStackQueue{
 		stack1: NewStack(),
 		stack2: NewStack(),
