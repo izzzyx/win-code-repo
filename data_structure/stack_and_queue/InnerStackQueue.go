@@ -16,11 +16,11 @@ func NewStack() *Stack {
 }
 
 // 把slice的尾部假装成是栈的头部
-func (s *Stack) push(v interface{}) {
+func (s *Stack) Push(v interface{}) {
 	s.innerSlice = append(s.innerSlice, v)
 }
 
-func (s *Stack) pop() interface{} {
+func (s *Stack) Pop() interface{} {
 	// debug1
 	if len(s.innerSlice) == 0 {
 		return nil
@@ -28,6 +28,10 @@ func (s *Stack) pop() interface{} {
 	v := s.innerSlice[len(s.innerSlice)-1]
 	s.innerSlice = s.innerSlice[:len(s.innerSlice)-1]
 	return v
+}
+
+func (s *Stack) Len() int {
+	return len(s.innerSlice)
 }
 
 // 题9：用两个栈实现一个队列，实现队列的两个函数appendTail和deleteHead
@@ -58,7 +62,7 @@ func (*InnerStackQueue) run() {
 }
 
 func (q *InnerStackQueue) appendTail(v interface{}) {
-	q.stack1.push(v)
+	q.stack1.Push(v)
 }
 
 func (q *InnerStackQueue) deleteHead() interface{} {
@@ -67,16 +71,16 @@ func (q *InnerStackQueue) deleteHead() interface{} {
 		return nil
 	}
 	for len(q.stack1.innerSlice) > 0 {
-		v := q.stack1.pop()
-		q.stack2.push(v)
+		v := q.stack1.Pop()
+		q.stack2.Push(v)
 	}
 
 	// debug2
 	// return q.stack2.pop()
-	data := q.stack2.pop()
+	data := q.stack2.Pop()
 	for len(q.stack2.innerSlice) > 0 {
-		v := q.stack2.pop()
-		q.stack1.push(v)
+		v := q.stack2.Pop()
+		q.stack1.Push(v)
 	}
 
 	return data
