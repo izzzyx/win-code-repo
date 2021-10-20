@@ -1,7 +1,9 @@
 package main
 
-import "data_structure/linkedlist"
+import (
+	"data_structure/str_and_array"
+)
 
 func main() {
-	linkedlist.ExecCopyComplexLinkedList1()
+	strandarray.ReplaceSpaceInString("We are happy.")
 }
