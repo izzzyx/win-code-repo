@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	strandarray.ReplaceSpaceInString("We are happy.")
+	println(strandarray.CountRepeatNumInArray([]int{1,2,3}, 1))
 }
