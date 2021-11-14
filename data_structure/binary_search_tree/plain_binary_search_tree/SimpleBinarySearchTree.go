@@ -1,4 +1,4 @@
-package main
+package plain_binary_search_tree
 
 import "fmt"
 
