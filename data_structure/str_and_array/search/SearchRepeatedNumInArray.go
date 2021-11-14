@@ -1,4 +1,4 @@
-package strandarray
+package search
 
 // 剑指 题3 找出数组中的任一重复数字
 // 思路：根据要查找的数组的特征（长度为n，数值范围在0~n-1的范围内）

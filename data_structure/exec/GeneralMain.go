@@ -1,9 +1,9 @@
 package main
 
 import (
-	"data_structure/str_and_array"
+	hashusedsearch "data_structure/str_and_array/hashused_search"
 )
 
 func main() {
-	println(strandarray.CountRepeatNumInArray([]int{1,2,3}, 1))
+	println(hashusedsearch.FirstUniqChar("loveleetcode"))
 }
